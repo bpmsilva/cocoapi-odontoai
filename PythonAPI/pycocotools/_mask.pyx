@@ -287,6 +287,9 @@ def frUncompressedRLE(ucRles, siz h, siz w):
 
 def frPyObjects(pyobj, h, w):
     # encode rle from a list of python objects
+    if type(pyobj) == list and type(pyobj[0]) != dict:
+        pyobj = [x for x in pyobj if len(x) > 2 and len(x) % 2 == 0]
+
     if type(pyobj) == np.ndarray:
         objs = frBbox(pyobj, h, w)
     elif type(pyobj) == list and len(pyobj[0]) == 4:
